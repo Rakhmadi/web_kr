@@ -36,9 +36,9 @@
                             ?>
                            <form action="AuthLogin.php" method="POST">
                                 <div class="form-group position-relative has-icon-left">
-                                    <label for="nama">nama</label>
+                                    <label for="email">email</label>
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" id="nama" name="nama" required>
+                                        <input type="email" class="form-control" id="email" name="email" required>
                                         <div class="form-control-icon">
                                             <i data-feather="user"></i>
                                         </div>

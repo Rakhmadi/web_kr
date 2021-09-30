@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Sep 2021 pada 17.47
+-- Waktu pembuatan: 30 Sep 2021 pada 11.03
 -- Versi server: 10.4.13-MariaDB
 -- Versi PHP: 7.4.7
 
@@ -39,7 +39,12 @@ CREATE TABLE `jawaban_user_test` (
 --
 
 INSERT INTO `jawaban_user_test` (`id_jawaban`, `user_id`, `soal_id`, `jawaban`) VALUES
-(1, 2, 1, '0');
+(26, 9, 1, '0'),
+(27, 9, 2, '1'),
+(28, 9, 3, '0'),
+(29, 8, 1, '1'),
+(30, 8, 2, '1'),
+(31, 8, 3, '0');
 
 -- --------------------------------------------------------
 
@@ -53,6 +58,16 @@ CREATE TABLE `sessions` (
   `session_token` varchar(255) NOT NULL,
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `session_token`, `date`) VALUES
+(76, 2, 'opfa17aisnh117evbrlj5qma7g', '2021-09-29 03:48:40'),
+(77, 2, 'opfa17aisnh117evbrlj5qma7g', '2021-09-29 05:05:36'),
+(83, 9, 'm31cebcvskdamsa2uv51jd1kt3', '2021-09-30 08:47:25'),
+(87, 9, 'nn0v273ofpfs3ub5u3odgm39bo', '2021-09-30 10:46:42');
 
 -- --------------------------------------------------------
 
@@ -101,7 +116,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `email`, `password`, `tanggal_lahir`, `posisi_yang_dilamar`, `pendidikan_terakhir`, `jurusan`, `user_role`) VALUES
 (1, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '2021-09-20', 'n', 'n', 'n', 'admin'),
 (2, 'rini', 'rini@gmail.com', 'b86872751de1e13c142d050acfd09842', '2021-09-06', 's', 's', 's', 'user'),
-(8, 'wahyu', 'wahyu@gmial.com', '32c9e71e866ecdbc93e497482aa6779f', '0000-00-00', 'fugonumu', 'fugonumu', 'fugonumu', 'user');
+(8, 'wahyu', 'wahyu@gmial.com', '32c9e71e866ecdbc93e497482aa6779f', '0000-00-00', 'fugonumu', 'fugonumu', 'fugonumu', 'user'),
+(9, 'rakhmadiwalker', 'rakhmadiwalker@gmail.com', '152ab98fad8da7bfbe273e1621446ad6', '2002-06-30', 'dfsd', 'asss', 'sasf', 'user');
 
 --
 -- Indexes for dumped tables
@@ -141,13 +157,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `jawaban_user_test`
 --
 ALTER TABLE `jawaban_user_test`
-  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT untuk tabel `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT untuk tabel `soal_test`
@@ -159,7 +175,7 @@ ALTER TABLE `soal_test`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

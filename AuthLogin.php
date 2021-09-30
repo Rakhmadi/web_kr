@@ -3,13 +3,13 @@
     
     session_start();
 
-    $nama = htmlspecialchars(@$_POST['nama']);
+    $email = htmlspecialchars(@$_POST['email']);
     $pass = htmlspecialchars(@$_POST['password']);
     $pass = md5($pass);
     
     $sesion = session_id();
 
-    $ext = $mySql->query("SELECT * FROM users WHERE nama = '{$nama}' AND password = '{$pass}'")->fetch_all(MYSQLI_ASSOC);
+    $ext = $mySql->query("SELECT * FROM users WHERE email = '{$email}' AND password = '{$pass}'")->fetch_all(MYSQLI_ASSOC);
     print_r($ext);
     $date = date('Y-m-d\TH:i:s');
     
@@ -19,7 +19,7 @@
         $_SESSION['token'] = $sesion;
         $_SESSION['role'] = $ext[0]['user_role'];
 
-        $ext1 = $mySql->query("SELECT * FROM users WHERE nama = '{$nama}' AND password = '{$pass}'");
+        $ext1 = $mySql->query("SELECT * FROM users WHERE email = '{$email}' AND password = '{$pass}'");
         // menghitung jumlah data yang ditemukan
         $cek = mysqli_num_rows($ext1);
 
@@ -54,7 +54,7 @@
                 $_SESSION['token'];
                 $_SESSION['role'];
                 // alihkan ke halaman user
-                header("location:on-user/index.php?m=soal",true,301);
+                header("location:on-user",true,301);
 
             }else{
                 // alihkan ke halaman login kembali

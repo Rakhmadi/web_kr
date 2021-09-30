@@ -167,23 +167,114 @@
                     $hal = @$_GET['m'];
                     if ( $hal == "setting") {
                         include 'settingUser.php';
-                    }else{
-                        include "userSoal.php";
+                    }elseif( $hal == "done") {
+                        include 'done.php';
+                    }elseif( $hal == "soal") {
+                        include 'userSoal.php';
+                    }else {
+                        include 'started.php';
                     }
                  ?>
             </div>
         </div>
     </div>
     <script>
-    // var sec = 20;
-    // setInterval(() => {
-    //     sec--;
-    //     if(sec < 0) {
-    //     window.location = 'login.php';
-    // } else {
-    //     document.getElementById("count").innerHTML = sec;
-    //      }
-    // }, 1000);
+        if (!localStorage.getItem('page')){
+                localStorage.setItem('page',1)
+        }
+
+
+ var countdownNum = localStorage.getItem('countdownNum');
+    if(!countdownNum){
+      countdownNum= 20;
+    }       
+if (getParameterByName('m') == 'soal') {
+    setTimeout(function() {
+       }, countdownNum);
+         var interval=setInterval(function() {
+             let elS = document.getElementById('count') != null
+             let paramHalaman = getParameterByName("hal")
+        if (paramHalaman != localStorage.getItem('page')) {
+            window.location = 'index.php?m=soal&hal='+localStorage.getItem('page')
+        }
+           if (countdownNum != 0) {
+             countdownNum--;
+             localStorage.setItem('countdownNum', countdownNum);
+             if (elS) {
+                document.getElementById('count').innerHTML =  countdownNum ;
+             }
+           } else {
+             if (elS) {
+                document.getElementById('count').innerHTML =  countdownNum ;
+             }
+             clearInterval(interval);
+             get()
+           }
+         }, 1000);
+
+}
+function get() {
+    let ArrOfQuestion = [];
+    let elements = document.getElementsByClassName("question");
+    
+    for (let index = 0; index < elements.length; index++) {
+        let elQ = elements[index].querySelector('input[name="Primary"]:checked')
+        if (elQ === null || elQ === undefined) {
+            elQ = "kosong"
+        }else{
+            elQ = elQ.value
+        }
+        ArrOfQuestion.push({
+            id_soal:elements[index].querySelector('input[name="id_soal"]').value,
+            id_user:elements[index].querySelector('input[name="id_user"]').value,
+            jawaban:elQ
+        })    
+    }
+    console.log(ArrOfQuestion)
+    send(ArrOfQuestion)
+}
+function x() {
+    console.log('asd')
+}
+function loadCountime() {
+    localStorage.setItem('countdownNum',20)
+}
+function send(load) {
+var http = new XMLHttpRequest();
+var url = 'saveSoal.php';
+http.open('POST', url, true);
+
+http.setRequestHeader('Content-type', 'application/json');
+
+http.onreadystatechange = function() {//Call a function when the state changes.
+    if(http.readyState == 4 && http.status == 200) {
+        if(getParameterByName("hal") >= 2 && localStorage.getItem('page') >= 2 ){
+            window.location = 'index.php?m=done';
+            localStorage.setItem('countdownNum','')
+            localStorage.setItem('page','')
+            localStorage.setItem('statusSoal','done')
+
+        }else{
+            localStorage.setItem('countdownNum',20)
+            localStorage.setItem('page',parseInt(localStorage.getItem('page'))+1)
+            window.location = 'index.php?m=soal&hal='+localStorage.getItem('page')
+        }
+    }
+}
+http.send(JSON.stringify(load));
+
+
+        
+}
+
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
     </script>
     <script src="../assets/js/feather-icons/feather.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
